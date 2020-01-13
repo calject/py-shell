@@ -9,7 +9,7 @@ import core.system.output as function
 
 
 class Process(object):
-    _isProcess = 0
+    _isProcess = False
     maps = {'process': 'green', 'info': 'cyan', 'notice': 'yellow', 'put': 'blue', 'warning': 'red', 'error': 'red'}
 
     @property

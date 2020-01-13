@@ -25,6 +25,12 @@ else:
 # 读配置文件
 yaml = Yaml(folder.file_path('pybuilder.yaml'))
 
+for model, value in yaml.get('models').items():
+    print(model, value)
+print(yaml.get('models'))
+
+print(list(x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py'))
+
 confHome = yaml.get('home').replace('~', home)
 if os.path.isdir(confHome):
     pyHome = confHome
