@@ -1,0 +1,45 @@
+
+# 版本
+version : v1.0
+# 资源生成路径
+home : ~/.py-shell
+# 构建命令
+command : pybuilder
+# 构建资源名称
+source_name : py-shell.source
+
+# model配置
+models:
+  - python:
+      suffix:
+        - '*.py'
+      path:
+        - script
+  - shell:
+      suffix:
+        - '*.h'
+        - '*.sh'
+        - '*.zsh'
+      path:
+        - shell/bash
+        - shell/zsh
+  - alias:
+      suffix:
+        - '*.alias'
+      path:
+        - shell/alias
+  - export:
+      suffix:
+        - '*.exp'
+      path:
+        - shell/export
+  - func:
+      suffix:
+        - '*.func'
+      path:
+        - shell/func
+  - fpath:
+      path:
+        shell/fpath
+
+
