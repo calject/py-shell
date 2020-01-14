@@ -8,7 +8,6 @@ __author__ = 'calject'
 
 class Handle(object):
 
-    pass
-
-
+    def handle(self, model, paths):
+        eval('self.' + model)(paths)
 

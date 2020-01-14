@@ -10,6 +10,7 @@ import core.system.output as output
 from core.system.process import Process
 from core.system.folder import Folder
 from core.system.folder import FolderRead
+from core.system.handle import Handle
 from core.system.yaml import Yaml
 
 # 系统判断
@@ -19,6 +20,10 @@ elif os.name == 'posix':
     home = command.run('echo $HOME')
 else:
     output.error('暂不支持该系统类型构建[' + os.name + ']', 2)
+
+Handle.handle('alias', [1, 2, 3])
+
+exit(0)
 
 # 初始化
 process = Process()
