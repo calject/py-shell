@@ -34,12 +34,12 @@ class FolderRead(object):
 
     def _read_file(self, paths, suffix):
         files = []
-        for tmp in paths:
+        for tmp in (paths if isinstance(paths, list) else [paths]):
             if os.path.isdir(tmp):
                 files.extend(self._read_file(list(os.path.abspath(os.path.join(tmp, d)) for d in os.listdir(tmp)), suffix))
             elif os.path.isfile(tmp):
                 if os.path.splitext(tmp)[1] in suffix:
                     files.append(tmp)
             elif os.path.isdir(os.path.join(self._def_dir, tmp)):
-                files.extend(self._read_file([os.path.join(self._def_dir, tmp)], suffix))
+                files.extend(self._read_file(os.path.join(self._def_dir, tmp), suffix))
         return files

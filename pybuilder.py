@@ -26,15 +26,17 @@ folder = Folder(__file__)
 folderRead = FolderRead(folder.dir)
 yaml = Yaml(folder.file_path('pybuilder.yaml'))
 
-parser = argparse.ArgumentParser(description="py-shell script")
+parser = argparse.ArgumentParser(description="基于python编写的脚本管理项目")
 parser.add_argument('--version', '-v', help="显示当前版本信息", action="store_true")
+parser.add_argument('--process', '-p', help="显示生成输出信息", action="store_true")
 args = parser.parse_args()
 
 if args.version:
-    print(yaml.get('version'))
-    exit(0)
+    output.c_print_end(yaml.get('version'))
+process.is_process = args.process
 
 # 检查并创建存储目录
+process.process('检查并创建存储目录')
 confHome = yaml.get('home', '~').replace('~', home)
 if os.path.isdir(confHome):
     pyHome = confHome
@@ -46,6 +48,7 @@ if not os.path.isdir(pyHome):
 
 for model, value in yaml.get('models').items():
     fileList = folderRead.file_list(value.get('path', []), value.get('suffix', []))
+    # todo: 处理model及路径
     # print(fileList)
 
 output.success('builder success')
