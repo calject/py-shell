@@ -30,6 +30,7 @@ folderRead = FolderRead(folder.dir)
 
 for model, value in yaml.get('models').items():
     fileList = folderRead.file_list(value.get('path', []), value.get('suffix', []))
+    print(fileList)
 
 
 confHome = yaml.get('home').replace('~', home)
