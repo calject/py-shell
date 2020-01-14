@@ -1,0 +1,28 @@
+
+function running() {
+    print -P "%F{cyan}$*%f"
+}
+
+function success() {
+    print -P "%F{green}$*%f"
+}
+
+function failure() {
+    print -P "%F{red}$*%f"
+}
+
+function error() {
+    print -P "%F{red}$*%f"
+    exit 1
+}
+
+function process() {
+    local -A maps
+    local lev head='' info=${2:-'info'}
+    maps=(process green info cyan notice yellow put blue warning red error red)
+    [[ $info == *ln ]] && info=${info%%ln} && head="\n"
+    (($+maps[$info])) && lev=$maps[$info] || lev=cyan
+    if ((${is_process})) {
+        [[ -n $1 ]] && print -P "%F{${lev}}${head}[${info}]: $1%f" || print ""
+    }
+}

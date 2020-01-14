@@ -28,17 +28,18 @@ class FolderRead(object):
         self._def_dir = def_dir
 
     def file_list(self, paths=None, suffix=None):
-        suffix = suffix.replace('*', '') if isinstance(suffix, bytearray) else []
-        paths = paths if isinstance(paths, bytearray) else []
-        return (x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1] == '.py')
+        paths = paths if isinstance(paths, list) else []
+        suffix = list(suf.replace('*', '') for suf in (suffix if isinstance(suffix, list) else []))
+        return self._read_file(paths, suffix)
 
     def _read_file(self, paths, suffix):
         files = []
         for tmp in paths:
             if os.path.isdir(tmp):
-                files.extend(self._read_file(os.listdir(tmp), suffix))
+                files.extend(self._read_file(list(os.path.abspath(os.path.join(tmp, d)) for d in os.listdir(tmp)), suffix))
             elif os.path.isfile(tmp):
-                files.append(tmp)
+                if os.path.splitext(tmp)[1] in suffix:
+                    files.append(tmp)
             elif os.path.isdir(os.path.join(self._def_dir, tmp)):
-                files.extend(self._read_file(os.path.join(self._def_dir, tmp), suffix))
+                files.extend(self._read_file([os.path.join(self._def_dir, tmp)], suffix))
         return files

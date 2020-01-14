@@ -1,0 +1,5 @@
+
+# [help]:get_opts:获取请求参数
+function get_opts() {
+    source $CAL_HOME/core/user/script/getopts.zsh
+}
