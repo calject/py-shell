@@ -10,7 +10,7 @@ import core.system.output as output
 from core.system.process import Process
 from core.system.folder import Folder
 from core.system.folder import FolderRead
-from core.system.handle import Handle
+from core.system.parse import Parse
 from core.system.yaml import Yaml
 
 # 系统判断
@@ -21,15 +21,12 @@ elif os.name == 'posix':
 else:
     output.error('暂不支持该系统类型构建[' + os.name + ']', 2)
 
-Handle.handle('alias', [1, 2, 3])
-
-exit(0)
-
 # 初始化
 process = Process()
 folder = Folder(__file__)
 folderRead = FolderRead(folder.dir)
 yaml = Yaml(folder.file_path('pybuilder.yaml'))
+parse = Parse()
 
 parser = argparse.ArgumentParser(description="基于python编写的脚本管理项目")
 parser.add_argument('--version', '-v', help="显示当前版本信息", action="store_true")
@@ -53,7 +50,9 @@ if not os.path.isdir(pyHome):
 
 for model, value in yaml.get('models').items():
     fileList = folderRead.file_list(value.get('path', []), value.get('suffix', []))
-    # todo: 处理model及路径
+    parse.append(model, fileList)
     # print(fileList)
+
+print(parse.lists)
 
 output.success('builder success')
