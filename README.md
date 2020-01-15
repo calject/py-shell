@@ -10,7 +10,7 @@
 * 合并命令
 
 ```bash
-git clone https://github.com/calject/py-shell.git && cd py-shell && python3 ./pybuilder.py -p && source ~/.bash_profile && source ~/.zshrc
+git clone https://github.com/calject/py-shell.git && cd py-shell && pip3 install -r package.txt && python3 ./pybuilder.py -p && source ~/.bash_profile && source ~/.zshrc
 ```
 
 ### 安装二 (分步)
@@ -21,11 +21,13 @@ git clone https://github.com/calject/py-shell.git && cd py-shell && python3 ./py
 git clone https://github.com/calject/py-shell.git
 ```
 
-2. 在项目目录下执行`python3 ./pybuilder.py`命令
+2. 安装模块`pip3 install -r ./package.txt`
 
-3. 执行`source ~/.zshrc` 或者 `source ~/.bash_profile`
+3. 在项目目录下执行`python3 ./pybuilder.py`命令
 
-4. 执行完成后在任意位置执行`pybuilder`(可在`pybuilder.yaml`中修改该命令别名)构建
+4. 执行`source ~/.zshrc` 或者 `source ~/.bash_profile`
+
+5. 执行完成后在任意位置执行`pybuilder`(可在`pybuilder.yaml`中修改该命令别名)构建
 
 
 ## 使用:
