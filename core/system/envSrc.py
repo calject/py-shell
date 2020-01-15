@@ -11,8 +11,10 @@ import re
 
 class EnvSrc(object):
 
-    def __init__(self, home):
+    def __init__(self, home, source_path):
         self._home = home
+        self._source_path = source_path
+        self._source_text = "source " + source_path
 
     def bashrc_path(self):
         return os.path.join(self._home, '.bash_profile')
@@ -30,26 +32,26 @@ class EnvSrc(object):
         else:
             return bashrc_path
 
-    def clear(self, text):
+    def clear(self):
         src_path = self.get_shrc_path()
         file_content = []
         with open(src_path, 'r') as f:
             for content in f:
-                if not re.match(r'' + text, content):
+                if not re.match(r'' + self._source_text, content):
                     file_content.append(content)
         if file_content:
-            open(src_path, 'w').write("\n".join(file_content))
+            open(src_path, 'w').write(''.join(file_content))
 
-    def write(self, text, force=False):
+    def write(self, force=False):
         src_path = self.get_shrc_path()
-        if force or not self._math_line_text(src_path, text):
-            open(src_path, 'a').write(text)
+        if force or not self._math_line_text(src_path, self._source_text):
+            open(src_path, 'a').write(self._source_text)
 
     # 查找某行内容匹配(单行)
     def _math_line_text(self, path, text):
         if os.path.isfile(path):
             with open(path) as contents:
                 for line in contents:
-                    if not re.match(r'' + text, line):
+                    if re.match(r'' + text, line):
                         return True
         return False

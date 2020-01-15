@@ -29,6 +29,18 @@ folder = Folder(__file__)
 folderRead = FolderRead(folder.dir)
 yaml = Yaml(folder.file_path('pybuilder.yaml'))
 
+# 获取资源存储目录(pyHome)
+confHome = yaml.get('home', '~').replace('~', home)
+pyHome = confHome if os.path.isdir(confHome) else os.path.join(home, confHome)
+
+# 判断资源存储根目录是否正确
+if pyHome in ('/', '~', home, '~/', home + '/'):
+    output.error('home路径参数错误, home路径不能为 ' + pyHome)
+
+# 创建资源类(删除生成资源/创建资源存储目录/获取资源文件路径)
+resource = Resource(pyHome, yaml.get('source_name', 'py-shell.source'))
+envSrc = EnvSrc(home, resource.get_source_path())
+
 # 检查脚本参数
 parser = argparse.ArgumentParser(description="基于python编写的脚本管理项目")
 parser.add_argument('--version', '-v', help="显示当前版本信息", action="store_true")
@@ -40,17 +52,11 @@ if args.version:
     output.c_print_end(yaml.get('version'))
 process.is_process = args.process
 
-# 检查并创建存储目录
-process.process('检查并创建存储目录')
-confHome = yaml.get('home', '~').replace('~', home)
-pyHome = confHome if os.path.isdir(confHome) else os.path.join(home, confHome)
+if args.clear:
+    envSrc.clear()
+    output.success_end("clear success.")
 
-# 判断资源存储根目录
-if pyHome in ('/', '~', home, '~/', home + '/'):
-    output.error('home路径参数错误, home路径不能为 ' + pyHome)
-
-# 创建资源类(删除生成资源/创建资源存储目录/获取资源文件路径)
-resource = Resource(pyHome, yaml.get('source_name', 'py-shell.source'))
+# 清理生成资源
 resource.clear()
 
 # 解析路径并生成资源文件
@@ -62,8 +68,7 @@ for model, value in yaml.get('models').items():
 parse.handle(resource.get_source_path())
 
 # 检查并写入环境配置(.bash_profile/.zshrc)
-envSrc = EnvSrc(home)
 
-print(envSrc.get_shrc_path())
+envSrc.write()
 
 output.success('builder success')
