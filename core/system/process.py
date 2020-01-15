@@ -32,17 +32,17 @@ class Process(object):
     def process(self, message, head=''):
         self.print(message, 'process', head)
 
-    def info(self, message, head):
+    def info(self, message, head=''):
         self.print(message, 'info', head)
 
-    def notice(self, message, head):
+    def notice(self, message, head=''):
         self.print(message, 'notice', head)
 
-    def put(self, message, head):
+    def put(self, message, head=''):
         self.print(message, 'put', head)
 
-    def warning(self, message, head):
+    def warning(self, message, head=''):
         self.print(message, 'warning', head)
 
-    def error(self, message, head):
+    def error(self, message, head=''):
         self.print(message, 'error', head)

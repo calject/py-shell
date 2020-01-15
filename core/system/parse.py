@@ -24,15 +24,24 @@ class Parse(object):
             model_source_path = os.path.join(self._home, model + '.source')
             with open(model_source_path, 'w') as f:
                 f.write("\n".join(data))
+            self._process.put(model_source_path)
             source_content.append("source " + model_source_path)
         with open(source_path, 'w') as f:
+            self._process.put(source_path)
             f.write("\n".join(source_content))
 
     def append(self, model, paths):
         if hasattr(self, '_' + model):
+            self._process.process("======== " + model + " ========")
             for path in (paths if isinstance(paths, list) else [paths]):
                 content = getattr(self, '_' + model)(path)
+                self._process.info(content)
                 self._lists[model] = ((self._lists[model] + [content]) if model in self._lists else [content])
+
+            if model not in self._lists:
+                self._process.notice(model + " 生成资源为空.\n")
+            else:
+                self._process.print('', None)
 
     def _shell(self, path):
         if os.path.isfile(path):
