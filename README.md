@@ -32,7 +32,6 @@ git clone https://github.com/calject/py-shell.git
 
 #### 代理问题(如果pip安装失败,配置一下pip安装源)
 
-```
 * 配置安装源
 ```
 mkdir -p ~/.pip && vim ~/.pip/pip.conf
