@@ -21,7 +21,7 @@ git clone https://github.com/calject/py-shell.git && cd py-shell && pip3 install
 git clone https://github.com/calject/py-shell.git
 ```
 
-2. 安装模块`pip3 install -r ./package.txt`
+2. 安装模块`pip3 install -r ./package.txt` (注: 安装不成功配置下国内镜像源)
 
 3. 在项目目录下执行`python3 ./pybuilder.py`命令
 
@@ -29,6 +29,34 @@ git clone https://github.com/calject/py-shell.git
 
 5. 执行完成后在任意位置执行`pybuilder`(可在`pybuilder.yaml`中修改该命令别名)构建
 
+
+#### 代理问题(如果pip安装失败,配置一下pip安装源)
+
+```
+* 配置安装源
+```
+mkdir -p ~/.pip && vim ~/.pip/pip.conf
+```
+
+* 豆瓣
+```
+[global]
+index-url=https://pypi.douban.com/simple/
+[install]
+use-mirrors=true
+mirrors=https://pypi.douban.com/simple/
+trusted-host=pypi.douban.com
+```
+
+* 阿里
+```
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple
+[install]
+use-mirrors=true
+mirrors=https://mirrors.aliyun.com/pypi/simple
+trusted-host=mirrors.aliyun.com
+```
 
 ## 使用:
 
