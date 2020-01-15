@@ -23,7 +23,13 @@ class Resource(object):
                 shutil.rmtree(self._home)
             else:
                 output.error('cancel')
+
+    def create(self):
         os.mkdir(self._home)
+
+    def recreate(self):
+        self.clear()
+        self.create()
 
     def get_home_path(self):
         return self._home

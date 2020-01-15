@@ -57,8 +57,8 @@ if args.clear:
     envSrc.clear()
     output.success_end("clear success.")
 
-# 清理生成资源
-resource.clear()
+# 清理并重新生成资源目录
+resource.recreate()
 
 # 解析路径并生成资源文件
 parse = Parse(process, resource.get_dir('sources'))
