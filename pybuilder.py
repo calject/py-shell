@@ -53,6 +53,7 @@ if args.version:
 process.is_process = args.process
 
 if args.clear:
+    resource.clear()
     envSrc.clear()
     output.success_end("clear success.")
 
