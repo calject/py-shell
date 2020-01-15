@@ -40,12 +40,14 @@ class EnvSrc(object):
                 if not re.match(r'' + self._source_text, content):
                     file_content.append(content)
         if file_content:
-            open(src_path, 'w').write(''.join(file_content))
+            with open(src_path, 'w') as f:
+                f.write(''.join(file_content))
 
     def write(self, force=False):
         src_path = self.get_shrc_path()
         if force or not self._math_line_text(src_path, self._source_text):
-            open(src_path, 'a').write(self._source_text)
+            with open(src_path, 'a') as f:
+                f.write(self._source_text)
 
     # 查找某行内容匹配(单行)
     def _math_line_text(self, path, text):

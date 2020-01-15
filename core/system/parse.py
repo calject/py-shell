@@ -13,13 +13,23 @@ class Parse(object):
         self._process = process
         self._home = os.path.join(*path)
         self._lists = {}
+        self._system_content = []
 
     @property
     def lists(self):
         return self._lists
 
+    @property
+    def system_content(self):
+        return self._system_content
+
     def handle(self, source_path):
         source_content = []
+        if self._system_content:
+            system_source_path = os.path.join(self._home, 'system.source')
+            with open(system_source_path, 'w') as f:
+                f.write(''.join(self._system_content))
+            source_content.append("source " + system_source_path)
         for model, data in self._lists.items():
             model_source_path = os.path.join(self._home, model + '.source')
             with open(model_source_path, 'w') as f:

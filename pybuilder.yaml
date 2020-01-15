@@ -3,6 +3,8 @@
 version : v1.0
 # 资源生成路径
 home : ~/.py-shell
+# 解析环境(python/python3)
+resolver: python3
 # 构建命令
 command : pybuilder
 # 构建资源名称

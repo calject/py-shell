@@ -66,6 +66,11 @@ for model, value in yaml.get('models').items():
     fileList = folderRead.file_list(value.get('path', []), value.get('suffix', []))
     parse.append(model, fileList)
 
+print(__file__, os.path.realpath(__file__), folder.file_path('pybuilder.yaml'))
+
+# 写入系统内容文件
+parse.system_content.append("export PYS_HOME=" + os.path.relpath(__file__))
+
 parse.handle(resource.get_source_path())
 
 # 检查并写入环境配置(.bash_profile/.zshrc)
