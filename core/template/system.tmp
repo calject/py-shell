@@ -2,13 +2,16 @@
 # 构建命令
 function $command$() {
     $resolver$ $PYS_HOME/pybuilder.py $*
-    source $HOME/$PYS_SHRC
+    source $PYS_SHRC
 }
 
 # 添加artisan命令自动补全函数
 compdef _$command$_completion $command$
 
 function _$command$_completion() {
-    _arguments -w -S -s \\
-    $arguments$
+    _arguments -w -S -s \
+        '-h[show this help message and exit]' \
+        '-c[清理生成资源]' \
+        '-p[显示生成输出信息]'\
+        '-v[显示当前版本信息]'
 }

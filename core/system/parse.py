@@ -23,12 +23,17 @@ class Parse(object):
     def system_content(self):
         return self._system_content
 
+    def system_export(self, export_name, export_content):
+        self._system_content.append("export " + export_name + "=" + export_content)
+        return self
+
     def handle(self, source_path):
         source_content = []
+
         if self._system_content:
             system_source_path = os.path.join(self._home, 'system.source')
             with open(system_source_path, 'w') as f:
-                f.write(''.join(self._system_content))
+                f.write("\n".join(self._system_content))
             source_content.append("source " + system_source_path)
         for model, data in self._lists.items():
             model_source_path = os.path.join(self._home, model + '.source')

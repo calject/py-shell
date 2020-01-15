@@ -16,8 +16,14 @@ class Folder(object):
     def dir(self):
         return self._dir
 
-    def file_path(self, path):
-        return os.path.join(self._dir, path)
+    def file_path(self, *path):
+        return os.path.join(self._dir, *path)
+
+    def core_path(self, *path):
+        return self.file_path('core', *path)
+
+    def tmp_path(self, *path):
+        return self.core_path('template', *path)
 
 
 class FolderRead(object):
