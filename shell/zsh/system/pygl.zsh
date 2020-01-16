@@ -7,10 +7,7 @@
 local remote branch isProcess=0
 local -a remotes
 
-# source process.func
-source $CAL_FUNC/process.func
-
-cd $CAL_HOME
+cd $PYS_HOME
 remotes=($(git remote))
 branch=$(git branch | awk '/\*.*/{print $2}')
 
@@ -24,14 +21,10 @@ remote name from which new revisions should be fetched."
 } || {
     remote=${remotes[1]}
 }
-process "cd $CAL_HOME" info
-cd $CAL_HOME
+cd $PYS_HOME
 
-process "remote prune ${remote}" info
 git remote prune ${remote}
 
-process "fetch ${remote} ${branch}" info
 git fetch ${remote} ${branch}
 
-process "pull ${remote} ${branch}" info
 git pull ${remote} ${branch}
