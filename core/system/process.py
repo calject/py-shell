@@ -5,7 +5,7 @@
 
 __author__ = 'calject'
 
-import core.system.output as function
+import core.system.output as output
 
 
 class Process(object):
@@ -27,7 +27,7 @@ class Process(object):
         if self._is_process:
             if model and model in self.maps:
                 message = '[' + model + ']: ' + message
-            function.c_print(head + message, self.maps[model] if model in self.maps else None)
+            output.c_print(head + message, self.maps[model] if model in self.maps else None)
 
     def process(self, message, head=''):
         self.print(message, 'process', head)

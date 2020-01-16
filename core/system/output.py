@@ -23,7 +23,7 @@ def c_print(message, color=None, bg_color=None, model=None):
         strFormat += ';' if strFormat else ''
         strFormat += str(bg_color) + 'm'
     elif strFormat:
-        strFormat += ';1m'
+        strFormat += ';22m'
     print('\033[' + strFormat + message + '\033[0m' if strFormat else message)
 
 
