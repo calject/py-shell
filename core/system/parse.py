@@ -29,7 +29,6 @@ class Parse(object):
 
     def handle(self, source_path):
         source_content = []
-
         if self._system_content:
             system_source_path = os.path.join(self._home, 'system.source')
             with open(system_source_path, 'w') as f:
