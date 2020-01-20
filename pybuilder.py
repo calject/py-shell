@@ -49,13 +49,13 @@ parser.add_argument('--clear', '-c', help="清理生成资源", action="store_tr
 args = parser.parse_args()
 
 if args.version:
-    output.c_print_end(yaml.get('version'))
+    output.c_print_exit(yaml.get('version'))
 process.is_process = args.process
 
 if args.clear:
     resource.clear()
     envSrc.clear()
-    output.success_end("clear success.")
+    output.success_exit("clear success.")
 
 # 清理并重新生成资源目录
 resource.recreate()

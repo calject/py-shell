@@ -27,7 +27,7 @@ def c_print(message, color=None, bg_color=None, model=None):
     print('\033[' + strFormat + message + '\033[0m' if strFormat else message)
 
 
-def c_print_end(message, color=None, bg_color=None, model=None, err_code=0):
+def c_print_exit(message, color=None, bg_color=None, model=None, err_code=0):
     c_print(message, color, bg_color, model)
     exit(err_code)
 
@@ -36,7 +36,7 @@ def success(message):
     c_print(message, 'green')
 
 
-def success_end(message):
+def success_exit(message):
     success(message)
     exit(0)
 
